@@ -1,164 +1,111 @@
-<<<<<<< HEAD
-# CLAPE Framework
+# 🧬 PRODBIN – Protein-DNA Binding Prediction
 
-**Contact:** For any questions regarding the code or data, please contact Yufan Liu at andyalbert97@gmail.com.
+## 📌 Overview
 
-This repository contains the code for the CLAPE (Contrastive Learning And Pre-trained Encoder) framework for protein–ligand binding site prediction. We provide three ligand-binding tasks: protein–DNA, protein–RNA, and antibody–antigen binding site prediction. For support of small molecule binding site weights and training scripts for the CLAPE series of models, please refer to  [CLAPE-SMB](https://github.com/JueWangTHU/CLAPE-SMB).
-
----
-
-## Usage
-
-**Note:** For comprehensive usage instructions, please refer to our [CLAPE protocol](https://link.springer.com/protocol/10.1007/978-1-0716-4623-6_18) in Methods in Molecular Biology.
-
-CLAPE primarily depends on the large-scale pre-trained protein language model [ProtBert](https://huggingface.co/Rostlab/prot_bert), implemented using [HuggingFace Transformers](https://huggingface.co/) and [PyTorch](https://pytorch.org/). Please install the dependencies in advance, or create a conda/mamba environment using the provided environment file. If you are using CLAPE-SMB, please also install [ESM](https://github.com/facebookresearch/esm).
-
-```shell
-wget https://github.com/YAndrewL/CLAPE/blob/main/environment.yaml
-conda env create -f environment.yaml
-conda activate clape 
-```
-
-### 1. Python Package from PyPI
-
-We provide a Python package for predicting ligand-binding sites from protein sequences in FASTA format. Below is an example for DNA-binding site prediction:
-
-```shell
-# Download model weights and example file
-wget https://github.com/YAndrewL/CLAPE/blob/main/example.fa
-wget https://github.com/YAndrewL/CLAPE/blob/main/weights/DNA.pth
-pip install clape  # Install CLAPE from PyPI
-```
-
-```python
-# Example usage
-from clape import Clape
-
-model = Clape(model_path="model_path", ligand="DNA")
-results = model.predict(input_file="example.fa")
-```
-
-You can set `keep_score=True` to retain the predicted scores from the model, and use `switch_ligand` to change the binding site prediction task.
-
-### 2. Command Line Tools
-
-A command line tool is also provided and installed with the Python package:
-
-```shell
-clape --input example.fa --output out.txt --ligand DNA --model /path/to/downloaded/model
-```
-
-This command loads the pre-trained models. You can specify the download directory using the `--cache` parameter.
-
-**Parameter descriptions:**
-
-| Parameter   | Description                                                                                      |
-|-------------|--------------------------------------------------------------------------------------------------|
-| --help      | Show the help documentation.                                                                     |
-| --ligand    | Specify the ligand for prediction: DNA, RNA, or AB (antibody).                                  |
-| --threshold | Threshold for identifying binding sites (0–1, default: 0.5).                                     |
-| --input     | Path to the input file in FASTA format.                                                          |
-| --output    | Path to the output file. The first two lines match the input; the third line is the prediction.  |
-| --cache     | Path for saving pre-trained parameters (default: protbert).                                      |
-| --model     | Path to trained backbone models.                                                                 |
+**PRODBIN** is a machine learning-based project for predicting protein–DNA binding sites using sequence information.
+This project is built upon the **CLAPE (Contrastive Learning And Pre-trained Encoder)** framework and adapted for practical usage and experimentation.
 
 ---
 
-## Citation
+## 👨‍💻 Author
 
-If you find our work helpful, please cite as follows:
+**Rishabh**
+GitHub: https://github.com/rissssgpt
 
-**CLAPE:**
-```
-@article{10.1093/bib/bbad488,
-    author = {Liu, Yufan and Tian, Boxue},
-    title = "{Protein–DNA binding sites prediction based on pre-trained protein language model and contrastive learning}",
-    journal = {Briefings in Bioinformatics},
-    volume = {25},
-    number = {1},
-    pages = {bbad488},
-    year = {2024},
-    month = {01},
-    issn = {1477-4054},
-    doi = {10.1093/bib/bbad488},
-    url = {https://doi.org/10.1093/bib/bbad488},
-    eprint = {https://academic.oup.com/bib/article-pdf/25/1/bbad488/55381199/bbad488.pdf},
-}
-```
+---
 
-**CLAPE-SMB:**
-```
-@article{10.1186/s13321-024-00920-2,
-    author={Wang, Jue and Liu, Yufan and Tian, Boxue},
-    title={Protein-small molecule binding site prediction based on a pre-trained protein language model with contrastive learning},
-    journal={Journal of Cheminformatics},
-    year={2024},
-    month={Nov},
-    day={06},
-    volume={16},
-    number={1},
-    pages={125},
-    issn={1758-2946},
-    doi={10.1186/s13321-024-00920-2},
-    url={https://doi.org/10.1186/s13321-024-00920-2}
-}
-```
+## 🎯 Objective
 
-**CLAPE protocol:**
+The goal of this project is to:
+
+* Predict protein–DNA binding sites from FASTA sequences
+* Utilize deep learning and pre-trained protein language models
+* Provide an easy-to-use prediction pipeline
+
+---
+
+## ⚙️ Technologies Used
+
+* Python
+* PyTorch
+* HuggingFace Transformers
+* ProtBert Model
+
+---
+
+## 📂 Project Structure
+
 ```
-@inbook{Liu2025,
-  author    = {Yufan Liu and Boxue Tian},
-  editor    = {Dukka B. KC},
-  title     = {CLAPE: Protein--Ligand Binding Site Prediction via Protein Language Models},
-  booktitle = {Large Language Models (LLMs) in Protein Bioinformatics},
-  year      = {2025},
-  publisher = {Springer US},
-  address   = {New York, NY},
-  pages     = {293--311},
-  isbn      = {978-1-0716-4623-6},
-  doi       = {10.1007/978-1-0716-4623-6_18},
-  url       = {https://doi.org/10.1007/978-1-0716-4623-6_18}
-}
+PRODBIN/
+│── clape.py
+│── example.fa
+│── requirements.txt
+│── README.md
+│── models/
+│── data/
 ```
 
 ---
 
-## Updates
+## 🚀 Installation
 
-- **Jul. 2025:** CLAPE protocol published in Methods in Molecular Biology. See [the online version](https://link.springer.com/protocol/10.1007/978-1-0716-4623-6_18).
-- **Nov. 2024:** CLAPE-SMB published in Journal of Cheminformatics. See [the online version](https://jcheminf.biomedcentral.com/articles/10.1186/s13321-024-00920-2).
-- **Aug. 2024:** CLAPE is now available as a Python package. See [clape on PyPI](https://pypi.org/project/clape/).
-- **Mar. 2024:** Training code released with CLAPE-SMB. See [this repo](https://github.com/JueWangTHU/CLAPE-SMB) for reference.
-- **Jan. 2024:** Our paper published in Briefings in Bioinformatics. See [the online version](https://academic.oup.com/bib/article/25/1/bbad488/7505238).
-=======
-# Protein-DNA-Binding-Prediction-PRODBIN
-
-This repo holds the code of CLAPE (Contrastive Learning And Pre-trained Encoder) framework for protein-ligands binding sites prediction. We provide 3 ligand-binding tasks including protein-DNA, protein-RNA, and antibody-antigen binding sites prediction. 
-
-CLAPE is primarily dependent on a large-scale pre-trained protein language model [ProtBert](https://huggingface.co/Rostlab/prot_bert)  implemented using [HuggingFace's Transformers](https://huggingface.co/) and [PyTorch](https://pytorch.org/). Please install the dependencies in advance. 
-
-## Usage:
-
-We provide the Python script for predicting ligand-binding sites of given protein sequences in FASTA format. Here we provide a sample file, and please use CLAPE as following commands:
+### Step 1: Clone the repository
 
 ```
-python clape.py --input example.fa --output out.txt
+git clone https://github.com/rissssgpt/PRODBIN.git
+cd PRODBIN
 ```
 
-This command will first load the pre-trained models, users can specify the downloading directory using the `--cache` parameter.
+### Step 2: Install dependencies
 
-Some parameters are described as follows:
+```
+pip install -r requirements.txt
+```
 
-| Parameters  | Descriptions                                                 |
-| ----------- | ------------------------------------------------------------ |
-| --help      | Show the help doc.                                           |
-| --ligand    | Specify the ligand for prediction, DNA, RNA, and AB (antibody) are supported now, default: DNA. |
-| --threshold | Specify the threshold for identifying the binding site, the value needs to be between 0 and 1, default: 0.5. |
-| --input     | The path of the input file in FASTA format.                  |
-| --output    | The path of the output file, the first and the second line are the same as the input file, and the third line is the prediction result. |
-| --cache     | The path for saving the pre-trained parameters, default: protbert. |
+---
 
-Reference: 
+## ▶️ Usage
 
-[Protein-DNA binding sites prediction based on pre-trained protein language model and contrastive learning](https://academic.oup.com/bib/article/25/1/bbad488/7505238) by Yufan Liu and Boxue Tian. Published in Briefings in Bioinformatics.
->>>>>>> 590af59c06947f027f900c8b1f3ab9c2b0ff6cd5
+Run the prediction:
+
+```
+python clape.py --input example.fa --output output.txt
+```
+
+---
+
+## 📊 Parameters
+
+| Parameter   | Description          |
+| ----------- | -------------------- |
+| --input     | Input FASTA file     |
+| --output    | Output file          |
+| --ligand    | DNA / RNA / AB       |
+| --threshold | Prediction threshold |
+
+---
+
+## 🧠 How It Works
+
+* Uses **ProtBert**, a pre-trained protein language model
+* Applies contrastive learning for feature extraction
+* Predicts binding sites based on sequence patterns
+
+---
+
+## 📌 Features
+
+* Supports DNA, RNA, and antibody binding prediction
+* Easy command-line interface
+* Based on state-of-the-art research
+
+---
+
+## 📚 Reference
+
+This project is inspired by:
+
+Protein–DNA binding site prediction using contrastive learning and protein language models (Briefings in Bioinformatics, 2024)
+
+---
+
